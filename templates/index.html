@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>My Notes App</title>
+    <style>
+        body { font-family: Arial, sans-serif; max-width: 600px; margin: 40px auto; }
+        h1 { text-align: center; }
+        form { margin-bottom: 20px; }
+        textarea { width: 100%; height: 80px; }
+        button { padding: 8px 16px; margin-top: 8px; }
+        ul { list-style-type: none; padding: 0; }
+        li { background: #f4f4f4; margin-bottom: 8px; padding: 8px; border-radius: 4px; }
+    </style>
+</head>
+<body>
+    <h1>My Notes</h1>
+
+    <form method="POST">
+        <label for="note">New note:</label><br>
+        <textarea id="note" name="note"></textarea><br>
+        <button type="submit">Add Note</button>
+    </form>
+
+    <h2>Saved notes</h2>
+    <ul>
+        {% for note in notes %}
+            <li>{{ note }}</li>
+        {% else %}
+            <li>No notes yet. Add one above!</li>
+        {% endfor %}
+    </ul>
+</body>
+</html>
+<ul>
+    {% for note in notes %}
+        <li>
+            {{ note["content"] }}
+            <form action="/delete/{{ note['id'] }}" method="POST" style="display:inline;">
+                <button type="submit" style="margin-left:10px;">Delete</button>
+            </form>
+        </li>
+    {% else %}
+        <li>No notes yet. Add one above!</li>
+    {% endfor %}
+</ul>
